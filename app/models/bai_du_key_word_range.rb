@@ -20,7 +20,19 @@ class BaiDuKeyWordRange
 			url = SearchEngine + keyword
 			for page in 0..PageSize  
 				tmpUrl = url + "&pn=" + (page * PageSize).to_s;
-				doc=Nokogiri::HTML(open(URI.encode(tmpUrl)))
+				puts tmpUrl
+				begin
+					doc=Nokogiri::HTML(open(URI.encode(tmpUrl)))
+				rescue 					
+					attempts=attempts+1
+					puts "attempts:"+attempts.to_s
+					retry if(attempts<MAX_ATTEMPTS)
+				end
+				
+				if doc.nil? 
+					next
+				end
+
 				table=doc.css("table:contains('#{@host}')")
 				if table.size>0
 					span=table.css("span.g:contains('#{@host}')")	
