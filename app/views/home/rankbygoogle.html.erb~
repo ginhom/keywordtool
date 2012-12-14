@@ -1,7 +1,7 @@
 <h1>查询Google排名</h1>
 <p>
 <%=form_tag '/home/searchbygoogle' do%>
-：<br/>
+网址：<br/>
 <%=text_field_tag 'host'%><br/>
   关键字：<br/>
   <%= text_area_tag 'keywords',nil,:size => "80x6" %><br/>

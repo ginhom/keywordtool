@@ -1,0 +1,51 @@
+<h1>查询排名结果</h1>
+<p>
+站点：<%=@site.name %><br/>
+<%
+  last_date=@site.site_results.order("created_at desc").first.created_at.to_date
+  google_result=@site.site_results.order("created_at desc").find(:first,  \
+			:conditions =>{:created_at=>last_date..last_date.next_day,:search_engine=>SearchEngine::GOOGLE})
+  baidu_result=@site.site_results.order("created_at desc").find(:first,  \
+			:conditions =>{:created_at=>
+			last_date..last_date.next_day,:search_engine=>SearchEngine::BAIDU})
+  last_result=if baidu_result.nil?
+		  google_result 
+	      else 
+                  baidu_result 
+              end
+%>
+
+查询日期：<%=last_date%>
+<br/>
+查询今天排名:
+<%=form_tag '/home/search_again/'+@site.id.to_s,:remote => true do%>
+	<label>
+	<%=check_box_tag 'search_engines[]',SearchEngine::GOOGLE%>Google
+	</label>
+	<label>
+	<%=check_box_tag 'search_engines[]',SearchEngine::BAIDU%>百度
+	</label>
+	<%=submit_tag '查询' %>
+<% end %>
+</p>
+<table>
+  <tr>
+    <th>关键字</th>
+    <th>百度排名</th>
+    <th>Google排名</th>
+  </tr>
+<% last_result.search_results.each do |search_result| %>
+  <tr>
+    <td><%= search_result.keyword %></td>
+    <td><%= search_result.rank %></td>
+    <td><%if !google_result.nil? 
+	     g_search_result=google_result.search_results.find_by_keyword(search_result.keyword)
+	     if !g_search_result.nil?%>
+		<%=g_search_result.rank%>
+	     <%end
+	  end
+	%></td>
+  </tr>
+<% end %>
+</table>
+<%= link_to '返回',root_path%>

@@ -1,11 +1,15 @@
 <h1>查询Google排名</h1>
 <p>
 <%=form_tag '/home/searchbygoogle' do%>
-网址：<br/>
-<%=text_field_tag 'host'%><br/>
-  关键字：<br/>
-  <%= text_area_tag 'keywords',nil,:size => "80x6" %><br/>
-  <%= submit_tag '提交' %>
+	网址：<%=text_field_tag 'host'%><br/>
+  	关键字： <%= text_area_tag 'keywords',nil,:size => "80x6" %><br/>
+	<label>
+	<%=check_box_tag 'search_engines[]',SearchEngine::GOOGLE%>Google
+	</label>
+	<label>
+	<%=check_box_tag 'search_engines[]',SearchEngine::BAIDU%>百度
+	</label>
+	<%=submit_tag '查询' %>
 <% end %>
 </p>
 <br/>

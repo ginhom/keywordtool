@@ -7,6 +7,8 @@ gem 'rails', '3.2.9'
 
 #gem 'sqlite3'
 gem 'nokogiri'
+gem 'delayed_job_active_record'
+gem 'decent_exposure'
 
 group :development do
   gem 'sqlite3'

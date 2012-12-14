@@ -1,5 +1,23 @@
 <h1>查询关键字排名与统计</h1>
-<p>
-<%= link_to '查询Google排名' home_rankbygoogle_path %>
-<%= link_to '查询百度排名' home_rankbybaidu_path %>
-</p>
+<ul>
+	<% @sites.each do |site| %>
+		<li>
+			<%=link_to site.name,{:controller=>"home",:action=>"searchresult",:id=>site} %>
+			<br/>
+			<%=site.keywords.split.join(',') %>
+		</li>
+	<%end%>
+</ul>
+<hr/>
+<%=form_tag '/home/searchby' do%>
+	网址：<br/><%=text_field_tag 'host'%><br/>
+  	关键字：<br/> <%= text_area_tag 'keywords',nil,:size => "80x6" %><br/>
+	<label>
+	<%=check_box_tag 'search_engines[]',SearchEngine::GOOGLE%>Google
+	</label>
+	<label>
+	<%=check_box_tag 'search_engines[]',SearchEngine::BAIDU%>百度
+	</label>
+	<br/>
+	<%=submit_tag '查询' %>
+<% end %>
