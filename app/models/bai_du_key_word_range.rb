@@ -9,43 +9,43 @@ class BaiDuKeyWordRange
 	SearchMaxPage=10
 	SearchEngineUrl="http://www.baidu.com/s?wd="
 
-	def initialize(site)
-		@site=site
-	end 
+	class << self
+		def search_rank(result)
+			name=result.site_result.site.name
+			puts name
+			url = SearchEngineUrl + result.keyword
+			for page in 0..PageSize  
+				tmpUrl = url + "&pn=" + (page * PageSize).to_s;
+				puts tmpUrl
+				attempts=0
+				begin
+					doc=Nokogiri::HTML(open(URI.encode(tmpUrl),"User-Agent" =>UserAgent))
+				rescue 					
+					attempts=attempts+1
+					puts "attempts:"+attempts.to_s
+					retry if(attempts<MAX_ATTEMPTS)
+				end
+				
+				if doc.nil? 
+					result.status=RankStatus::FAIL
+					next
+				end
 
-	def search_rank(result)
-		url = SearchEngineUrl + result.keyword
-		for page in 0..PageSize  
-			tmpUrl = url + "&pn=" + (page * PageSize).to_s;
-			puts tmpUrl
-			attempts=0
-			begin
-				doc=Nokogiri::HTML(open(URI.encode(tmpUrl),"User-Agent" =>UserAgent))
-			rescue 					
-				attempts=attempts+1
-				puts "attempts:"+attempts.to_s
-				retry if(attempts<MAX_ATTEMPTS)
+				table=doc.css("table:contains('#{name}')")
+				if table.size>0
+					span=table.css("span.g:contains('#{name}')")	
+					if span.size>0
+						rank = table.first['id']	
+						result.rank=rank	.to_i	
+						result.status=RankStatus::SUCCESS	
+						puts "#{result.keyword}=>#{result.rank}"	
+						break					
+					end				
+				end
 			end
-			
-			if doc.nil? 
-				result.status=RankStatus::FAIL
-				next
-			end
-
-			table=doc.css("table:contains('#{@site.name}')")
-			if table.size>0
-				span=table.css("span.g:contains('#{@site.name}')")	
-				if span.size>0
-					rank = table.first['id']	
-					result.rank=rank	.to_i	
-					result.status=RankStatus::SUCCESS	
-					puts "#{result.keyword}=>#{result.rank}"	
-					break					
-				end				
-			end
+			result.status=RankStatus::SUCCESS if result.status==RankStatus::NEW
+			result.save
 		end
-		result.status=RankStatus::SUCCESS if result.status==RankStatus::NEW
-		result.save
+		handle_asynchronously :search_rank
 	end
-	handle_asynchronously :search_rank
 end

@@ -1,7 +1,6 @@
 #coding: utf-8
 class Site < ActiveRecord::Base
   Page_Size=10
-  include SearchEngine
   validates_presence_of :name,:keywords
   validates_length_of :label,:maximum=>15
 
@@ -14,7 +13,7 @@ class Site < ActiveRecord::Base
     end
     search_engines.split(',').each do |search_engine|
       #puts "#{search_engine}-------------------------"
-      
+
       next if search_engine.blank?
 
       SiteResult.transaction do
@@ -40,12 +39,7 @@ class Site < ActiveRecord::Base
             result.site_result=site_result
             result.keyword=keyword
             result.save
-            case search_engine
-              when SearchEngine::GOOGLE
-                GoogleKeyWordRange.new(self).search_rank(result)               
-              when SearchEngine::BAIDU
-                BaiDuKeyWordRange.new(self).search_rank(result)                                  
-            end            
+            result.search_rank        
           else
             puts "today has searched:#{keyword}"
           end
