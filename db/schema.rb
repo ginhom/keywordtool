@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121213051846) do
+ActiveRecord::Schema.define(:version => 20121218152430) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(:version => 20121213051846) do
     t.integer  "site_result_id"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.string   "status"
   end
 
   add_index "search_results", ["keyword"], :name => "index_search_results_on_keyword"
@@ -52,8 +53,10 @@ ActiveRecord::Schema.define(:version => 20121213051846) do
   create_table "sites", :force => true do |t|
     t.string   "name"
     t.text     "keywords"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.string   "label"
+    t.string   "search_engines"
   end
 
   add_index "sites", ["name"], :name => "by_name"

@@ -1,0 +1,11 @@
+.page-header
+	%h1
+		查询排名结果 		
+- if flash[:waiting_for_ranking]
+	.alert.alert-success
+		%button.close{:type=>'button',:'data-dismiss'=>"alert"}
+			&times;
+		%strong
+			OK！
+		你的查询排名请求已加入队列，我们需要花点时间去处理。你现在可以去做别的事情，等过几分钟再回到这里,刷新页面，查看结果。
+= render 'show'

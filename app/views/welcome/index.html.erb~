@@ -1,23 +1,17 @@
-<h1>查询关键字排名与统计</h1>
-<ul>
+<div class="hero-unit">
+<h1>查询关键词排名与统计</h1>
+<p>旨在帮助SEO工作人员快速查询某个网站下各关键词在Google、百度等搜索引擎前一百名的排名，最后按月或年汇总统计各关键字排名。
+</p>
+<p><%=link_to '开始 »',new_site_path,:class=>"btn btn-primary btn-large"%></p>
+</div>
+
+<dl class="dl-horizontal">
 	<% @sites.each do |site| %>
-		<li>
-			<%=link_to site.name,{:controller=>"home",:action=>"searchresult",:id=>site} %>
-			<br/>
-			<%=site.keywords.split.join(',') %>
-		</li>
+		<dt>
+			<%=link_to site.name,site %>
+		</dt>
+		<dd>
+			<%=site.keywords.split.join(' ') %>
+		</dd>
 	<%end%>
-</ul>
-<hr/>
-<%=form_tag '/home/searchby' do%>
-	网址：<br/><%=text_field_tag 'host'%><br/>
-  	关键字：<br/> <%= text_area_tag 'keywords',nil,:size => "80x6" %><br/>
-	<label>
-	<%=check_box_tag 'search_engines[]',SearchEngine::GOOGLE%>Google
-	</label>
-	<label>
-	<%=check_box_tag 'search_engines[]',SearchEngine::BAIDU%>百度
-	</label>
-	<br/>
-	<%=submit_tag '查询' %>
-<% end %>
+</dl>

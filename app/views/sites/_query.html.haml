@@ -1,0 +1,28 @@
+.row
+	.span12			
+		%table.table.table-striped.table-bordered
+			%caption						
+				- if !(site.label.nil? || site.label.blank?)
+					= site.label
+				=site.name
+			%thead
+				%tr
+					%th
+						关键字 
+					%th
+						百度排名
+					%th
+						Google排名
+			%tbody
+				- baidu_result=site.get_rank_result_by_engine_and_day(SearchEngine::BAIDU,@date)
+				- google_result=site.get_rank_result_by_engine_and_day(SearchEngine::GOOGLE,@date)
+				- site.keywords.split.each do |keyword|
+					- baidu_keyword_rank=baidu_result.nil? ? nil : baidu_result.get_rank_by_keyword(keyword)
+					- google_keyword_rank=google_result.nil? ? nil : google_result.get_rank_by_keyword(keyword)
+					%tr
+						%td 
+							= keyword
+						%td
+							= baidu_keyword_rank.nil? || baidu_keyword_rank.rank.nil? ? '-' : baidu_keyword_rank.rank.to_s
+						%td
+							= google_keyword_rank.nil? || google_keyword_rank.rank.nil? ? '-' : google_keyword_rank.rank.to_s

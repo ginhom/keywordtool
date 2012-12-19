@@ -19,33 +19,6 @@ class GoogleKeyWordRange
 		@site=site
 	end  
 
-	def search
-		site_result=@site.site_results.find(:first,  \
-			:conditions =>["created_at>:today and search_engine=:search_engine", \
-			{:search_engine=>SearchEngine::GOOGLE,:today=>Date.today}])
-		if site_result.nil?
-			site_result||=SiteResult.new
-			site_result.site=@site
-			site_result.search_engine=SearchEngine::GOOGLE
-			site_result.save
-		else
-			puts "today has searched:#{@site.name}-#{SearchEngine::GOOGLE}"
-		end
-		@site.keywords.split.each do |keyword|
-			result=site_result.search_results.find(:first,:conditions=>{:keyword=>keyword})
-			if result.nil?
-				result=SearchResult.new
-				result.site_result=site_result
-				result.keyword=keyword
-				result.save
-				delay.search_rank(result)
-			else
-				puts "today has searched:#{keyword}"
-			end
-		end	
-	end
-private
-
 	def search_rank(result)
 		current_key_index=0
 		for page in 0..SearchMaxPage  
@@ -62,6 +35,7 @@ private
 				if current_key_index<KEYS.length
 					current_key_index+=1
 				else
+					result.status=RankStatus::FAIL
 					break
 				end		
 			rescue 					
@@ -71,6 +45,7 @@ private
 			end
 
 			if doc.nil? 
+				result.status=RankStatus::FAIL
 				next
 			end
 			#puts doc
@@ -88,10 +63,13 @@ private
 			end
 			if rank>0
 				result.rank=page * PageSize+rank
+				result.status=RankStatus::SUCCESS
 				puts "#{result.keyword}=>#{result.rank}"
 				break
 			end
 		end	
-		result.save
+		result.status=RankStatus::SUCCESS if result.status==RankStatus::NEW
+		result.save		
 	end
+	handle_asynchronously :search_rank
 end

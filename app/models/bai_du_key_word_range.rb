@@ -13,33 +13,6 @@ class BaiDuKeyWordRange
 		@site=site
 	end 
 
-	def search		
-		site_result=@site.site_results.find(:first,  \
-			:conditions =>["created_at>:today and search_engine=:search_engine", \
-			{:search_engine=>SearchEngine::BAIDU,:today=>Date.today}])
-		if site_result.nil?		
-			site_result=SiteResult.new
-			site_result.site=@site
-			site_result.search_engine=SearchEngine::BAIDU
-			site_result.save
-		else
-			puts "today has searched:#{@site.name}-#{SearchEngine::BAIDU}"
-		end
-		@site.keywords.split.each do |keyword|
-			result=site_result.search_results.find_by_keyword(keyword)
-			if result.nil?
-				result=SearchResult.new
-				result.site_result=site_result
-				result.keyword=keyword
-				result.save
-				delay.search_rank(result)
-			else
-				puts "today has searched:#{keyword}"
-			end
-		end			
-	end
-
-private
 	def search_rank(result)
 		url = SearchEngineUrl + result.keyword
 		for page in 0..PageSize  
@@ -55,6 +28,7 @@ private
 			end
 			
 			if doc.nil? 
+				result.status=RankStatus::FAIL
 				next
 			end
 
@@ -63,10 +37,15 @@ private
 				span=table.css("span.g:contains('#{@site.name}')")	
 				if span.size>0
 					rank = table.first['id']	
-					result.rank=rank	.to_i								
+					result.rank=rank	.to_i	
+					result.status=RankStatus::SUCCESS	
+					puts "#{result.keyword}=>#{result.rank}"	
+					break					
 				end				
 			end
 		end
+		result.status=RankStatus::SUCCESS if result.status==RankStatus::NEW
 		result.save
 	end
+	handle_asynchronously :search_rank
 end

@@ -9,6 +9,9 @@ gem 'rails', '3.2.9'
 gem 'nokogiri'
 gem 'delayed_job_active_record'
 gem 'decent_exposure'
+gem 'haml'
+gem 'bootstrap-sass'
+gem 'whenever', :require => false
 
 group :development do
   gem 'sqlite3'

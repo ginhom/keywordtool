@@ -21,6 +21,7 @@ class HomeController < ApplicationController
   def searchby
     searchhost = params[:host]
     keywords=params[:keywords]
+
     search_engines=params[:search_engines] 
     if !search_engines.nil? 
       site=Site.find_by_name(searchhost)
@@ -29,6 +30,9 @@ class HomeController < ApplicationController
         site.name=searchhost
         site.keywords=keywords
         site.save
+      elsif !keywords.nil?
+          keywords.split.each{|keyword| site.keywords+="\r\n#{keyword}" if !site.keywords.split.include? keyword}
+          site.save
       end
       site.search_rank(*search_engines)
     end

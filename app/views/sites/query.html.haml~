@@ -1,0 +1,85 @@
+.page-header
+	%h2
+		查询排名结果 
+.row	
+	.span12
+		%p
+			网址：
+			=@q 
+	.span12		
+		= form_tag query_sites_path({:q=>@q}),:class=>"form-search clear-margin input-append" do
+			%label
+				查询日期： 
+				= text_field_tag 'date',@date,:class=>"input-small",:type=>"text",:'data-datepicker-format'=>"yyyy-mm-dd",:placeholder=>"选择日期过滤"
+			= submit_tag '查询',{:class=>"btn"}
+	.span12
+		.pagination.clear-margin
+			%ul
+				%li{:class=>@has_prev?"":"disabled"}
+					%a{:href=>@has_prev ? query_sites_path({:q=>@q,:page=>(@page-1)}) : '#'}
+						&laquo;
+				- @dates.each do |date|
+					%li{:class=>@date==date.created_day && "active"}
+						- if @date==date.created_day
+							%span
+								= date.created_day
+						- else
+							= link_to date.created_day,query_sites_path({:q=>@q,:date=>date.created_day})
+				%li{:class=>@has_next?"":"disabled"}
+					%a{:href=>@has_next ? query_sites_path({:q=>@q,:page=>@page+1}) : '#'}
+						&raquo;
+
+
+	.span12			
+		%table.table.table-striped.table-bordered
+			%thead
+				%tr
+					%th.span2
+						分类
+					%th
+						关键字 
+					%th
+						百度排名
+					%th
+						Google排名
+			%tbody
+				- @sites.each do |site|
+					%tr
+						%td{:rowspan=>site.keywords.split.size+1,:class=>'td-center-middle'}
+							= site.label
+					- baidu_result=site.get_rank_result_by_engine_and_day(SearchEngine::BAIDU,@date)
+					- google_result=site.get_rank_result_by_engine_and_day(SearchEngine::GOOGLE,@date)
+					- site.keywords.split.each do |keyword|
+						- baidu_keyword_rank=baidu_result.nil? ? nil : baidu_result.get_rank_by_keyword(keyword)
+						- google_keyword_rank=google_result.nil? ? nil : google_result.get_rank_by_keyword(keyword)
+						%tr
+							%td 
+								= keyword
+							%td
+								- if baidu_keyword_rank.nil?
+									\-
+								- else
+									- case baidu_keyword_rank.status
+										- when RankStatus::NEW then
+											%em.text-info
+												等候查询...
+										- when RankStatus::SUCCESS then 
+											= baidu_keyword_rank.rank
+										- when RankStatus::FAIL then
+											%em.text-error
+												查询失败
+							%td
+								- if google_keyword_rank.nil?
+									\-
+								- else
+									- case google_keyword_rank.status
+										- when RankStatus::NEW then
+											%em.text-info
+												等候查询...
+										- when RankStatus::SUCCESS then 
+											= google_keyword_rank.rank
+										- when RankStatus::FAIL then 
+											%em.text-error
+												%abbr.initialism{:title=>'由于google搜索引擎有每天查询限制，今天的查询量已用完，此记录将会安排在次日查询。'}
+													查询失败
+
