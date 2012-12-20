@@ -11,6 +11,11 @@
 			<%=link_to site.name,site %>
 		</dt>
 		<dd>
+			<%if !site.label.try(:blank?)%>
+				<strong><%=site.label%></strong>
+			<%end%>
+		</dd>
+		<dd>
 			<%=site.keywords.split.join(' ') %>
 		</dd>
 	<%end%>

@@ -21,6 +21,6 @@ test:
 production:
   adapter: postgresql
   encoding: utf-8
-  database: db/production
+  database: keywordranktool_production
   pool: 5
 

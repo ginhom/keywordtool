@@ -12,17 +12,17 @@ class BaiDuKeyWordRange
 	class << self
 		def search_rank(result)
 			name=result.site_result.site.name
-			puts name
+			Rails.logger.info name
 			url = SearchEngineUrl + result.keyword
 			for page in 0..PageSize  
 				tmpUrl = url + "&pn=" + (page * PageSize).to_s;
-				puts tmpUrl
+				Rails.logger.info tmpUrl
 				attempts=0
 				begin
 					doc=Nokogiri::HTML(open(URI.encode(tmpUrl),"User-Agent" =>UserAgent))
 				rescue 					
 					attempts=attempts+1
-					puts "attempts:"+attempts.to_s
+					Rails.logger.warn "attempts:"+attempts.to_s
 					retry if(attempts<MAX_ATTEMPTS)
 				end
 				
@@ -38,7 +38,7 @@ class BaiDuKeyWordRange
 						rank = table.first['id']	
 						result.rank=rank	.to_i	
 						result.status=RankStatus::SUCCESS	
-						puts "#{result.keyword}=>#{result.rank}"	
+						Rails.logger.info "#{result.keyword}=>#{result.rank}"	
 						break					
 					end				
 				end

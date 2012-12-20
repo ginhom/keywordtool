@@ -7,6 +7,7 @@ gem 'rails', '3.2.9'
 
 #gem 'sqlite3'
 gem 'nokogiri'
+gem "daemons" 
 gem 'delayed_job_active_record'
 gem 'decent_exposure'
 gem 'haml'

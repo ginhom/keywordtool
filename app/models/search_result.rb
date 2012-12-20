@@ -2,7 +2,8 @@ class SearchResult < ActiveRecord::Base
   belongs_to :site_result
   attr_accessible :keyword, :rank,:status
 
-  before_save :default_values
+  after_initialize :init
+  
   scope :fails,where(:status=>RankStatus::FAIL).order("created_at asc")
 
   def search_rank
@@ -22,7 +23,7 @@ class SearchResult < ActiveRecord::Base
 
  private
 
-  def default_values
+  def init
     self.status ||= RankStatus::NEW
   end
 

@@ -18,19 +18,19 @@ class GoogleKeyWordRange
 	class << self
 		def search_rank(result)
 			name=result.site_result.site.name
-			puts name
+			Rails.logger.info name
 			current_key_index=0
 			for page in 0..SearchMaxPage  
 				current_key=KEYS[current_key_index]
 				current_cx=CXS[current_key_index]
 				url = "#{SearchEngineUrl}&key=#{current_key}&cx=#{current_cx}&num=#{PageSize}&a&q=#{result.keyword}&start=#{(page * PageSize+1)}";
-				puts url
+				Rails.logger.info url
 				attempts=0
 				begin
 					doc=open(URI.encode(url)).read	
 				rescue OpenURI::HTTPError => the_error		
 					the_status = the_error.io.status[0]
-					puts "error:#{the_error.message}"		
+					Rails.logger.error "error:#{the_error.message}"		
 					if current_key_index<KEYS.length
 						current_key_index+=1
 					else
@@ -39,7 +39,7 @@ class GoogleKeyWordRange
 					end		
 				rescue 					
 					attempts=attempts+1
-					puts "attempts:"+attempts.to_s
+					Rails.logger.info "attempts:"+attempts.to_s
 					retry if(attempts<MAX_ATTEMPTS)
 				end
 
@@ -47,14 +47,14 @@ class GoogleKeyWordRange
 					result.status=RankStatus::FAIL
 					next
 				end
-				#puts doc
+				#Rails.logger.info doc
 				json = JSON.parse(doc)
-				#puts json
+				#Rails.logger.info json
 				
-				#puts json["items"].size
+				#Rails.logger.info json["items"].size
 				rank=0
 				json["items"].each_with_index do |item,index|
-					puts "#{index+1},#{item["link"]}"
+					Rails.logger.info "#{index+1},#{item["link"]}"
 					if item["link"].include? name
 						rank=index+1
 						break
@@ -63,7 +63,7 @@ class GoogleKeyWordRange
 				if rank>0
 					result.rank=page * PageSize+rank
 					result.status=RankStatus::SUCCESS
-					puts "#{result.keyword}=>#{result.rank}"
+					Rails.logger.info "#{result.keyword}=>#{result.rank}"
 					break
 				end
 			end	

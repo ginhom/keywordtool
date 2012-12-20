@@ -7,11 +7,10 @@
 			网址：
 			=@q 
 	.span12		
-		= form_tag query_sites_path({:q=>@q}),:class=>"form-search clear-margin input-append" do
+		= form_tag query_sites_path({:q=>@q}),:class=>"form-search clear-margin" do
 			%label
 				查询日期： 
 				= text_field_tag 'date',@date,:class=>"input-small",:type=>"text",:'data-datepicker-format'=>"yyyy-mm-dd",:placeholder=>"选择日期过滤"
-			= submit_tag '查询',{:class=>"btn"}
 	.span12
 		.pagination.clear-margin
 			%ul
@@ -64,7 +63,7 @@
 											%em.text-info
 												等候查询...
 										- when RankStatus::SUCCESS then 
-											= baidu_keyword_rank.rank
+											= baidu_keyword_rank.rank.nil? ? "-" : baidu_keyword_rank.rank
 										- when RankStatus::FAIL then
 											%em.text-error
 												查询失败
@@ -77,7 +76,7 @@
 											%em.text-info
 												等候查询...
 										- when RankStatus::SUCCESS then 
-											= google_keyword_rank.rank
+											= google_keyword_rank.rank.nil? ? "-" : google_keyword_rank.rank
 										- when RankStatus::FAIL then 
 											%em.text-error
 												%abbr.initialism{:title=>'由于google搜索引擎有每天查询限制，今天的查询量已用完，此关键词将会安排在次日查询。'}

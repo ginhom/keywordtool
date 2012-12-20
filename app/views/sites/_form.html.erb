@@ -9,16 +9,19 @@
 			<%end%>
 		</div>
 	</div>
-	<div class="control-group">
+	<div class="control-group <%= 'error' if site.errors.include?(:label)%>">
 		<%= f.label 'label','关键词分类：',:class=>"control-label"%>
   		<div class="controls">			
   			<%= f.text_field 'label',:class=>"input-xlarge",:placeholder=>'可以空白，或输入不超过15个字符',:'data-provide'=>"typeahead",:'data-source'=>"#{get_all_labels}" %>
+			<%if site.errors.include?(:label)%>
+				<span class="help-inline">不超过15个字符</span>
+			<%end%>
   		</div>
     	</div>
 	<div class="control-group">
 		<%= f.label 'keywords','关键词列表：',:class=>"control-label"%>
   		<div class="controls">			
-  			<%= f.text_area 'keywords',:size => "80x10",:class=>"input-xxlarge",:placeholder=>'每行输入一个不超过15个字符的关键词',:required=>true%>
+  			<%= f.text_area 'keywords',:size => "80x10",:class=>"input-xxlarge",:placeholder=>'每行输入一个不超过20个字符的关键词',:required=>true%>
   			<span class="help-block ">每行输入一个不超过15个字符的关键词</span>
   		</div>
     	</div>
@@ -26,16 +29,19 @@
     		<label class="control-label" for="search_engines[]">搜索引擎：</label>
     		<div class="controls">
 			<label class="checkbox inline">
-				<%=check_box_tag 'search_engines[]',SearchEngine::GOOGLE,(!site.search_engines.nil? && site.search_engines.include?(SearchEngine::GOOGLE))%>Google
+				<%=check_box_tag 'search_engines[]',SearchEngine::GOOGLE,(!site.search_engines.nil? && site.search_engines.include?(SearchEngine::GOOGLE)) || site.new_record?%>Google
 			</label>
 				<label class="checkbox inline">
-			<%=check_box_tag 'search_engines[]',SearchEngine::BAIDU,(!site.search_engines.nil? && site.search_engines.include?(SearchEngine::BAIDU))%>百度
+			<%=check_box_tag 'search_engines[]',SearchEngine::BAIDU,(!site.search_engines.nil? && site.search_engines.include?(SearchEngine::BAIDU)) || site.new_record?%>百度 
 			</label>
 		</div>
 	</div>
     	<div class="control-group">
     		<div class="controls">
     			<%=f.submit '提交',:class=>'btn btn-primary' %>
+				<%if !site.new_record? %>
+    				<%=link_to '取消',site,:class=>'btn' %>
+				<%end%>
 			</div>
 		</div>
 	</div>

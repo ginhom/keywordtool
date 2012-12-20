@@ -28,7 +28,7 @@ class Site < ActiveRecord::Base
           site_result.search_engine=search_engine
           site_result.save
         else
-          puts "today has searched:#{name}-#{search_engine}"
+          logger.info "today has searched:#{name}-#{search_engine}"
         end
 
         keywords.split.each do |keyword|
@@ -41,7 +41,7 @@ class Site < ActiveRecord::Base
             result.save
             result.search_rank        
           else
-            puts "today has searched:#{keyword}"
+            logger.info "today has searched:#{keyword}"
           end
         end
 
@@ -50,8 +50,9 @@ class Site < ActiveRecord::Base
   end
 
   def all_rank_dates(page=1)
-     site_results.order("created_at desc") 
+     site_results
         .select("date(created_at) as created_day")
+        .order("date(created_at) desc") 
         .uniq.limit(Page_Size).offset((page-1)*Page_Size)
   end
 
@@ -64,8 +65,9 @@ class Site < ActiveRecord::Base
   end
 
   def last_rank_date(page=1)
-      result=site_results.order("created_at desc")
+      result=site_results
         .select("date(created_at) as created_day")
+        .order("date(created_at) desc")
         .uniq
         .offset((page-1)*Page_Size)
         .first
@@ -73,7 +75,9 @@ class Site < ActiveRecord::Base
   end
 
   def get_rank_result_by_engine_and_day(search_engine,date)
-      site_results.find(:first,:conditions=>["date(created_at)=? and search_engine=?",date,search_engine])
+      site_results
+      .includes(:search_results)
+      .find(:first,:conditions=>["date(site_results.created_at)=? and search_engine=?",date,search_engine])
   end
 
   def self.query_by_name(name)
@@ -85,6 +89,5 @@ class Site < ActiveRecord::Base
     site_results.order("created_at desc") 
         .select("distinct date(created_at)").size
   end
-
 
 end
