@@ -1,0 +1,9 @@
+.page-header
+	%h2 重发解除账号锁定邮件
+= form_for(resource, :as => resource_name, :url => unlock_path(resource_name), :html => { :method => :post }) do |f|
+	= devise_error_messages!
+	= f.label :email,'邮件'
+	= f.email_field :email
+	%br
+	= f.submit "重发"
+= render "devise/shared/links"

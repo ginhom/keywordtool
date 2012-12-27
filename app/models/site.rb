@@ -1,11 +1,14 @@
 #coding: utf-8
 class Site < ActiveRecord::Base
   Page_Size=10
+  MAX_GUEST_KEYWORDS=30
   validates_presence_of :name,:keywords
   validates_length_of :label,:maximum=>15
 
-  has_many:site_results,:dependent => :destroy
+  has_many :site_results,:dependent => :destroy
+  belongs_to :user
   attr_accessible :keywords, :name,:label,:search_engines
+  validate :validation_keywords_size
 
   def search_rank
     if search_engines.nil? || search_engines.blank? 
@@ -90,4 +93,9 @@ class Site < ActiveRecord::Base
         .select("distinct date(created_at)").size
   end
 
+private
+
+  def validation_keywords_size
+    errors[:keywords] << "关键词不能超过30个" if !user and keywords.split.size>MAX_GUEST_KEYWORDS
+    end
 end

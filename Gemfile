@@ -13,9 +13,12 @@ gem 'decent_exposure'
 gem 'haml'
 gem 'bootstrap-sass'
 gem 'whenever', :require => false
+gem 'devise'
 
 group :development do
-  gem 'sqlite3'
+	gem 'hpricot'
+	gem 'ruby_parser'
+	gem 'sqlite3'
 end
 group :production do
   gem 'pg'

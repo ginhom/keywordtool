@@ -1,0 +1,12 @@
+.page-header
+  %h2 更改你的密码
+= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f|
+  = devise_error_messages!
+  = f.hidden_field :reset_password_token
+  = f.label :password, "新密码"
+  = f.password_field :password
+  = f.label :password_confirmation, "确定密码"
+  = f.password_field :password_confirmation
+  %br
+  = f.submit "修改密码",:class=>"btn btn-primary"
+= render "devise/shared/links"

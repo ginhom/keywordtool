@@ -1,0 +1,18 @@
+- if current_user
+  .page_header
+    
+- else
+  .hero-unit
+    %h1 查询关键词排名与统计
+    %p
+      旨在帮助SEO工作人员快速查询某个网站下各关键词在Google、百度等搜索引擎前一百名的排名，最后按月或年汇总统计各关键词排名。
+    %p= link_to '试用下 »',new_site_path,:class=>"btn btn-primary btn-large"
+  %dl.dl-horizontal
+    - @sites.each do |site|
+      %dt
+        = link_to site.name,site
+      %dd
+        - if !site.label.try(:blank?)
+          %strong= site.label
+      %dd
+        = site.keywords.split.join(' ')

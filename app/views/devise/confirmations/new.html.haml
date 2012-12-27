@@ -1,0 +1,9 @@
+.page-header
+	%h2 重发验证邮件
+= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name),:html => { :method => :post } ) do |f|
+	= devise_error_messages!
+	= f.label :email,"邮箱",:class=>'control-label'
+	= f.email_field :email
+	%br
+	= f.submit "重发验证邮件",:class=>'btn btn-primary'
+= render "devise/shared/links"

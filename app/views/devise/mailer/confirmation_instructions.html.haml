@@ -1,0 +1,4 @@
+%p
+  您好 #{@resource.email}!
+%p 请点击以下链接验证你的账号:
+%p= link_to '验证账号', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token)

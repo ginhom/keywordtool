@@ -1,0 +1,178 @@
+# Logfile created on 2012-12-21 00:38:40 +0800 by logger.rb/25413
+Started POST "/sites/query" for 127.0.0.1 at 2012-12-21 00:38:40 +0800
+Processing by SitesController#query as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"6RSZ8h61efReIHSyj4AVMyZlTlUd2TsZffJz0bxrSQI=", "q"=>"e-trans.com.cn"}
+  [1m[35m (1.5ms)[0m  SELECT COUNT(distinct date(site_results.created_at)) FROM "site_results" INNER JOIN "sites" ON "sites"."id" = "site_results"."site_id" WHERE (sites.name like '%e-trans.com.cn%')
+  [1m[36mSiteResult Load (1.5ms)[0m  [1mSELECT DISTINCT date(site_results.created_at) as created_day FROM "site_results" INNER JOIN "sites" ON "sites"."id" = "site_results"."site_id" WHERE (sites.name like '%e-trans.com.cn%') ORDER BY date(site_results.created_at) desc LIMIT 1 OFFSET 0[0m
+  [1m[35mSiteResult Load (1.5ms)[0m  SELECT DISTINCT date(site_results.created_at) as created_day FROM "site_results" INNER JOIN "sites" ON "sites"."id" = "site_results"."site_id" WHERE (sites.name like '%e-trans.com.cn%') ORDER BY date(site_results.created_at) desc LIMIT 10 OFFSET 0
+  [1m[36mSite Load (1.2ms)[0m  [1mSELECT "sites".* FROM "sites" WHERE (name like '%e-trans.com.cn%') ORDER BY name asc[0m
+  [1m[35mSiteResult Load (1.0ms)[0m  SELECT "site_results".* FROM "site_results" WHERE "site_results"."site_id" = 1 AND (date(site_results.created_at)='2012-12-20' and search_engine='BAIDU') LIMIT 1
+  [1m[36mSearchResult Load (1.5ms)[0m  [1mSELECT "search_results".* FROM "search_results" WHERE "search_results"."site_result_id" IN (4)[0m
+  [1m[35mSiteResult Load (1.0ms)[0m  SELECT "site_results".* FROM "site_results" WHERE "site_results"."site_id" = 1 AND (date(site_results.created_at)='2012-12-20' and search_engine='GOOGLE') LIMIT 1
+  [1m[36mSearchResult Load (1.2ms)[0m  [1mSELECT "search_results".* FROM "search_results" WHERE "search_results"."site_result_id" IN (3)[0m
+  [1m[35mSiteResult Load (0.8ms)[0m  SELECT "site_results".* FROM "site_results" WHERE "site_results"."site_id" = 2 AND (date(site_results.created_at)='2012-12-20' and search_engine='BAIDU') LIMIT 1
+  [1m[36mSearchResult Load (1.4ms)[0m  [1mSELECT "search_results".* FROM "search_results" WHERE "search_results"."site_result_id" IN (6)[0m
+  [1m[35mSiteResult Load (0.5ms)[0m  SELECT "site_results".* FROM "site_results" WHERE "site_results"."site_id" = 2 AND (date(site_results.created_at)='2012-12-20' and search_engine='GOOGLE') LIMIT 1
+  [1m[36mSearchResult Load (0.6ms)[0m  [1mSELECT "search_results".* FROM "search_results" WHERE "search_results"."site_result_id" IN (5)[0m
+  [1m[35mSiteResult Load (1.0ms)[0m  SELECT "site_results".* FROM "site_results" WHERE "site_results"."site_id" = 3 AND (date(site_results.created_at)='2012-12-20' and search_engine='BAIDU') LIMIT 1
+  [1m[36mSearchResult Load (0.9ms)[0m  [1mSELECT "search_results".* FROM "search_results" WHERE "search_results"."site_result_id" IN (8)[0m
+  [1m[35mSiteResult Load (1.1ms)[0m  SELECT "site_results".* FROM "site_results" WHERE "site_results"."site_id" = 3 AND (date(site_results.created_at)='2012-12-20' and search_engine='GOOGLE') LIMIT 1
+  [1m[36mSearchResult Load (0.8ms)[0m  [1mSELECT "search_results".* FROM "search_results" WHERE "search_results"."site_result_id" IN (7)[0m
+  [1m[35mSiteResult Load (1.0ms)[0m  SELECT "site_results".* FROM "site_results" WHERE "site_results"."site_id" = 4 AND (date(site_results.created_at)='2012-12-20' and search_engine='BAIDU') LIMIT 1
+  [1m[36mSearchResult Load (1.0ms)[0m  [1mSELECT "search_results".* FROM "search_results" WHERE "search_results"."site_result_id" IN (10)[0m
+  [1m[35mSiteResult Load (1.0ms)[0m  SELECT "site_results".* FROM "site_results" WHERE "site_results"."site_id" = 4 AND (date(site_results.created_at)='2012-12-20' and search_engine='GOOGLE') LIMIT 1
+  [1m[36mSearchResult Load (1.1ms)[0m  [1mSELECT "search_results".* FROM "search_results" WHERE "search_results"."site_result_id" IN (9)[0m
+  [1m[35mSiteResult Load (0.8ms)[0m  SELECT "site_results".* FROM "site_results" WHERE "site_results"."site_id" = 7 AND (date(site_results.created_at)='2012-12-20' and search_engine='BAIDU') LIMIT 1
+  [1m[36mSearchResult Load (0.8ms)[0m  [1mSELECT "search_results".* FROM "search_results" WHERE "search_results"."site_result_id" IN (16)[0m
+  [1m[35mSiteResult Load (0.9ms)[0m  SELECT "site_results".* FROM "site_results" WHERE "site_results"."site_id" = 7 AND (date(site_results.created_at)='2012-12-20' and search_engine='GOOGLE') LIMIT 1
+  [1m[36mSearchResult Load (0.8ms)[0m  [1mSELECT "search_results".* FROM "search_results" WHERE "search_results"."site_result_id" IN (15)[0m
+  [1m[35mSiteResult Load (0.9ms)[0m  SELECT "site_results".* FROM "site_results" WHERE "site_results"."site_id" = 5 AND (date(site_results.created_at)='2012-12-20' and search_engine='BAIDU') LIMIT 1
+  [1m[36mSearchResult Load (0.9ms)[0m  [1mSELECT "search_results".* FROM "search_results" WHERE "search_results"."site_result_id" IN (12)[0m
+  [1m[35mSiteResult Load (0.8ms)[0m  SELECT "site_results".* FROM "site_results" WHERE "site_results"."site_id" = 5 AND (date(site_results.created_at)='2012-12-20' and search_engine='GOOGLE') LIMIT 1
+  [1m[36mSearchResult Load (0.9ms)[0m  [1mSELECT "search_results".* FROM "search_results" WHERE "search_results"."site_result_id" IN (11)[0m
+  [1m[35mSiteResult Load (0.9ms)[0m  SELECT "site_results".* FROM "site_results" WHERE "site_results"."site_id" = 6 AND (date(site_results.created_at)='2012-12-20' and search_engine='BAIDU') LIMIT 1
+  [1m[36mSearchResult Load (0.7ms)[0m  [1mSELECT "search_results".* FROM "search_results" WHERE "search_results"."site_result_id" IN (14)[0m
+  [1m[35mSiteResult Load (0.9ms)[0m  SELECT "site_results".* FROM "site_results" WHERE "site_results"."site_id" = 6 AND (date(site_results.created_at)='2012-12-20' and search_engine='GOOGLE') LIMIT 1
+  [1m[36mSearchResult Load (0.8ms)[0m  [1mSELECT "search_results".* FROM "search_results" WHERE "search_results"."site_result_id" IN (13)[0m
+  [1m[35mSiteResult Load (1.0ms)[0m  SELECT "site_results".* FROM "site_results" WHERE "site_results"."site_id" = 8 AND (date(site_results.created_at)='2012-12-20' and search_engine='BAIDU') LIMIT 1
+  [1m[36mSearchResult Load (0.6ms)[0m  [1mSELECT "search_results".* FROM "search_results" WHERE "search_results"."site_result_id" IN (18)[0m
+  [1m[35mSiteResult Load (0.6ms)[0m  SELECT "site_results".* FROM "site_results" WHERE "site_results"."site_id" = 8 AND (date(site_results.created_at)='2012-12-20' and search_engine='GOOGLE') LIMIT 1
+  [1m[36mSearchResult Load (0.6ms)[0m  [1mSELECT "search_results".* FROM "search_results" WHERE "search_results"."site_result_id" IN (17)[0m
+  [1m[35mSiteResult Load (0.4ms)[0m  SELECT "site_results".* FROM "site_results" WHERE "site_results"."site_id" = 9 AND (date(site_results.created_at)='2012-12-20' and search_engine='BAIDU') LIMIT 1
+  [1m[36mSearchResult Load (0.3ms)[0m  [1mSELECT "search_results".* FROM "search_results" WHERE "search_results"."site_result_id" IN (20)[0m
+  [1m[35mSiteResult Load (0.3ms)[0m  SELECT "site_results".* FROM "site_results" WHERE "site_results"."site_id" = 9 AND (date(site_results.created_at)='2012-12-20' and search_engine='GOOGLE') LIMIT 1
+  [1m[36mSearchResult Load (0.3ms)[0m  [1mSELECT "search_results".* FROM "search_results" WHERE "search_results"."site_result_id" IN (19)[0m
+  [1m[35mSiteResult Load (0.3ms)[0m  SELECT "site_results".* FROM "site_results" WHERE "site_results"."site_id" = 10 AND (date(site_results.created_at)='2012-12-20' and search_engine='BAIDU') LIMIT 1
+  [1m[36mSearchResult Load (0.3ms)[0m  [1mSELECT "search_results".* FROM "search_results" WHERE "search_results"."site_result_id" IN (22)[0m
+  [1m[35mSiteResult Load (0.6ms)[0m  SELECT "site_results".* FROM "site_results" WHERE "site_results"."site_id" = 10 AND (date(site_results.created_at)='2012-12-20' and search_engine='GOOGLE') LIMIT 1
+  [1m[36mSearchResult Load (0.3ms)[0m  [1mSELECT "search_results".* FROM "search_results" WHERE "search_results"."site_result_id" IN (21)[0m
+  [1m[35mSiteResult Load (0.3ms)[0m  SELECT "site_results".* FROM "site_results" WHERE "site_results"."site_id" = 11 AND (date(site_results.created_at)='2012-12-20' and search_engine='BAIDU') LIMIT 1
+  [1m[36mSearchResult Load (0.3ms)[0m  [1mSELECT "search_results".* FROM "search_results" WHERE "search_results"."site_result_id" IN (24)[0m
+  [1m[35mSiteResult Load (0.3ms)[0m  SELECT "site_results".* FROM "site_results" WHERE "site_results"."site_id" = 11 AND (date(site_results.created_at)='2012-12-20' and search_engine='GOOGLE') LIMIT 1
+  [1m[36mSearchResult Load (0.3ms)[0m  [1mSELECT "search_results".* FROM "search_results" WHERE "search_results"."site_result_id" IN (23)[0m
+  [1m[35mSiteResult Load (0.4ms)[0m  SELECT "site_results".* FROM "site_results" WHERE "site_results"."site_id" = 12 AND (date(site_results.created_at)='2012-12-20' and search_engine='BAIDU') LIMIT 1
+  [1m[36mSearchResult Load (0.4ms)[0m  [1mSELECT "search_results".* FROM "search_results" WHERE "search_results"."site_result_id" IN (26)[0m
+  [1m[35mSiteResult Load (0.6ms)[0m  SELECT "site_results".* FROM "site_results" WHERE "site_results"."site_id" = 12 AND (date(site_results.created_at)='2012-12-20' and search_engine='GOOGLE') LIMIT 1
+  [1m[36mSearchResult Load (0.5ms)[0m  [1mSELECT "search_results".* FROM "search_results" WHERE "search_results"."site_result_id" IN (25)[0m
+  [1m[35mSiteResult Load (0.5ms)[0m  SELECT "site_results".* FROM "site_results" WHERE "site_results"."site_id" = 13 AND (date(site_results.created_at)='2012-12-20' and search_engine='BAIDU') LIMIT 1
+  [1m[36mSearchResult Load (0.3ms)[0m  [1mSELECT "search_results".* FROM "search_results" WHERE "search_results"."site_result_id" IN (28)[0m
+  [1m[35mSiteResult Load (0.3ms)[0m  SELECT "site_results".* FROM "site_results" WHERE "site_results"."site_id" = 13 AND (date(site_results.created_at)='2012-12-20' and search_engine='GOOGLE') LIMIT 1
+  [1m[36mSearchResult Load (0.3ms)[0m  [1mSELECT "search_results".* FROM "search_results" WHERE "search_results"."site_result_id" IN (27)[0m
+  [1m[35mSiteResult Load (0.3ms)[0m  SELECT "site_results".* FROM "site_results" WHERE "site_results"."site_id" = 14 AND (date(site_results.created_at)='2012-12-20' and search_engine='BAIDU') LIMIT 1
+  [1m[36mSearchResult Load (0.5ms)[0m  [1mSELECT "search_results".* FROM "search_results" WHERE "search_results"."site_result_id" IN (30)[0m
+  [1m[35mSiteResult Load (0.4ms)[0m  SELECT "site_results".* FROM "site_results" WHERE "site_results"."site_id" = 14 AND (date(site_results.created_at)='2012-12-20' and search_engine='GOOGLE') LIMIT 1
+  [1m[36mSearchResult Load (0.4ms)[0m  [1mSELECT "search_results".* FROM "search_results" WHERE "search_results"."site_result_id" IN (29)[0m
+  [1m[35mSiteResult Load (0.5ms)[0m  SELECT "site_results".* FROM "site_results" WHERE "site_results"."site_id" = 15 AND (date(site_results.created_at)='2012-12-20' and search_engine='BAIDU') LIMIT 1
+  [1m[36mSearchResult Load (0.3ms)[0m  [1mSELECT "search_results".* FROM "search_results" WHERE "search_results"."site_result_id" IN (32)[0m
+  [1m[35mSiteResult Load (0.6ms)[0m  SELECT "site_results".* FROM "site_results" WHERE "site_results"."site_id" = 15 AND (date(site_results.created_at)='2012-12-20' and search_engine='GOOGLE') LIMIT 1
+  [1m[36mSearchResult Load (0.3ms)[0m  [1mSELECT "search_results".* FROM "search_results" WHERE "search_results"."site_result_id" IN (31)[0m
+  Rendered sites/query.html.haml within layouts/application (245.4ms)
+  [1m[35mSite Load (0.3ms)[0m  SELECT DISTINCT name FROM "sites" 
+Completed 200 OK in 264ms (Views: 209.1ms | ActiveRecord: 45.5ms)
+Connecting to database specified by database.yml
+Started GET "/sites/query" for 127.0.0.1 at 2012-12-21 09:27:14 +0800
+Processing by SitesController#query as HTML
+Redirected to http://localhost:3010/
+  [1m[36m (37.3ms)[0m  [1mSELECT COUNT(distinct date(site_results.created_at)) FROM "site_results" INNER JOIN "sites" ON "sites"."id" = "site_results"."site_id" WHERE (sites.name like '%%')[0m
+  [1m[35mSiteResult Load (0.7ms)[0m  SELECT DISTINCT date(site_results.created_at) as created_day FROM "site_results" INNER JOIN "sites" ON "sites"."id" = "site_results"."site_id" WHERE (sites.name like '%%') ORDER BY date(site_results.created_at) desc LIMIT 1 OFFSET 0
+Completed 302 Found in 328ms (ActiveRecord: 263.9ms)
+Started GET "/" for 127.0.0.1 at 2012-12-21 09:27:14 +0800
+Processing by WelcomeController#index as HTML
+  [1m[36mSite Load (2.2ms)[0m  [1mSELECT "sites".* FROM "sites" ORDER BY created_at DESC[0m
+  Rendered welcome/index.html.erb within layouts/application (30.9ms)
+  [1m[35mSite Load (1.6ms)[0m  SELECT DISTINCT name FROM "sites" 
+Completed 200 OK in 90ms (Views: 85.8ms | ActiveRecord: 3.8ms)
+Started GET "/" for 127.0.0.1 at 2012-12-21 09:31:19 +0800
+Processing by WelcomeController#index as HTML
+  [1m[36mSite Load (1.1ms)[0m  [1mSELECT "sites".* FROM "sites" ORDER BY created_at DESC[0m
+  Rendered welcome/index.html.erb within layouts/application (11.2ms)
+  [1m[35mSite Load (0.8ms)[0m  SELECT DISTINCT name FROM "sites" 
+Completed 200 OK in 17ms (Views: 14.2ms | ActiveRecord: 1.9ms)
+Connecting to database specified by database.yml
+Started GET "/" for 127.0.0.1 at 2012-12-21 23:35:24 +0800
+Processing by WelcomeController#index as HTML
+PG::Error: ERROR:  relation "users" does not exist
+LINE 5:              WHERE a.attrelid = '"users"'::regclass
+                                        ^
+:             SELECT a.attname, format_type(a.atttypid, a.atttypmod),
+                     pg_get_expr(d.adbin, d.adrelid), a.attnotnull, a.atttypid, a.atttypmod
+              FROM pg_attribute a LEFT JOIN pg_attrdef d
+                ON a.attrelid = d.adrelid AND a.attnum = d.adnum
+             WHERE a.attrelid = '"users"'::regclass
+               AND a.attnum > 0 AND NOT a.attisdropped
+             ORDER BY a.attnum
+
+Completed 500 Internal Server Error in 217ms
+
+ActiveRecord::StatementInvalid (PG::Error: ERROR:  relation "users" does not exist
+LINE 5:              WHERE a.attrelid = '"users"'::regclass
+                                        ^
+:             SELECT a.attname, format_type(a.atttypid, a.atttypmod),
+                     pg_get_expr(d.adbin, d.adrelid), a.attnotnull, a.atttypid, a.atttypmod
+              FROM pg_attribute a LEFT JOIN pg_attrdef d
+                ON a.attrelid = d.adrelid AND a.attnum = d.adnum
+             WHERE a.attrelid = '"users"'::regclass
+               AND a.attnum > 0 AND NOT a.attisdropped
+             ORDER BY a.attnum
+):
+  app/controllers/welcome_controller.rb:3:in `index'
+
+
+Started GET "/" for 127.0.0.1 at 2012-12-21 23:35:29 +0800
+Processing by WelcomeController#index as HTML
+PG::Error: ERROR:  relation "users" does not exist
+LINE 5:              WHERE a.attrelid = '"users"'::regclass
+                                        ^
+:             SELECT a.attname, format_type(a.atttypid, a.atttypmod),
+                     pg_get_expr(d.adbin, d.adrelid), a.attnotnull, a.atttypid, a.atttypmod
+              FROM pg_attribute a LEFT JOIN pg_attrdef d
+                ON a.attrelid = d.adrelid AND a.attnum = d.adnum
+             WHERE a.attrelid = '"users"'::regclass
+               AND a.attnum > 0 AND NOT a.attisdropped
+             ORDER BY a.attnum
+
+Completed 500 Internal Server Error in 2ms
+
+ActiveRecord::StatementInvalid (PG::Error: ERROR:  relation "users" does not exist
+LINE 5:              WHERE a.attrelid = '"users"'::regclass
+                                        ^
+:             SELECT a.attname, format_type(a.atttypid, a.atttypmod),
+                     pg_get_expr(d.adbin, d.adrelid), a.attnotnull, a.atttypid, a.atttypmod
+              FROM pg_attribute a LEFT JOIN pg_attrdef d
+                ON a.attrelid = d.adrelid AND a.attnum = d.adnum
+             WHERE a.attrelid = '"users"'::regclass
+               AND a.attnum > 0 AND NOT a.attisdropped
+             ORDER BY a.attnum
+):
+  app/controllers/welcome_controller.rb:3:in `index'
+
+
+Started GET "/" for 127.0.0.1 at 2012-12-21 23:36:50 +0800
+Processing by WelcomeController#index as HTML
+PG::Error: ERROR:  relation "users" does not exist
+LINE 5:              WHERE a.attrelid = '"users"'::regclass
+                                        ^
+:             SELECT a.attname, format_type(a.atttypid, a.atttypmod),
+                     pg_get_expr(d.adbin, d.adrelid), a.attnotnull, a.atttypid, a.atttypmod
+              FROM pg_attribute a LEFT JOIN pg_attrdef d
+                ON a.attrelid = d.adrelid AND a.attnum = d.adnum
+             WHERE a.attrelid = '"users"'::regclass
+               AND a.attnum > 0 AND NOT a.attisdropped
+             ORDER BY a.attnum
+
+Completed 500 Internal Server Error in 2ms
+
+ActiveRecord::StatementInvalid (PG::Error: ERROR:  relation "users" does not exist
+LINE 5:              WHERE a.attrelid = '"users"'::regclass
+                                        ^
+:             SELECT a.attname, format_type(a.atttypid, a.atttypmod),
+                     pg_get_expr(d.adbin, d.adrelid), a.attnotnull, a.atttypid, a.atttypmod
+              FROM pg_attribute a LEFT JOIN pg_attrdef d
+                ON a.attrelid = d.adrelid AND a.attnum = d.adnum
+             WHERE a.attrelid = '"users"'::regclass
+               AND a.attnum > 0 AND NOT a.attisdropped
+             ORDER BY a.attnum
+):
+  app/controllers/welcome_controller.rb:3:in `index'
+
+

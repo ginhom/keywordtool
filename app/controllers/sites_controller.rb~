@@ -1,9 +1,8 @@
-#coding: utf-8
 class SitesController < ApplicationController
 	Page_Size=10
+	MAX_GUEST_KEYWORDS=30
 	expose(:site)
-	before_filter :set_search_engines,:only=>[:create,:update]
-	before_filter :authenticate_user!,:only=>[:destroy]
+	before_filter :set_search_engines,:check_keywords_size,:only=>[:create,:update]
 	
 	def create				
 		logger.debug site.search_engines
@@ -62,5 +61,17 @@ private
 	def set_search_engines
 		site.search_engines=params[:search_engines].nil? ? nil:params[:search_engines].join(',')
 	end
+
+	def validation_keywords_size
+		if !current_user
+			site.keywords.split.size>MAX_GUEST_KEYWORDS
+		end
+	end
+	def my_validation
+	    if !current_user and site.keywords.split.size>MAX_GUEST_KEYWORDS
+	        errors[:name] << "关键词不能超过30个"
+	     end
+  	end
+end
 
 end
