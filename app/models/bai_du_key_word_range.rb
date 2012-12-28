@@ -6,7 +6,7 @@ class BaiDuKeyWordRange
 	ReadTimeOutRetryCount = 5
 	UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.91 Safari/537.11"
 	PageSize=10
-	SearchMaxPage=10
+	SearchMaxPage=9
 	SearchEngineUrl="http://www.baidu.com/s?wd="
 
 	class << self

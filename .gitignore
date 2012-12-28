@@ -13,8 +13,8 @@
 # Secret file
 /config/database.yml
 /config/deploy.rb
-/config/environments/production.rb
-/app/models/google_key_word_range.rb
+/config/email.yml
+/config/googleapi.yml
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
