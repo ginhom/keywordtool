@@ -21,6 +21,9 @@ test:
 production:
   adapter: postgresql
   encoding: utf-8
-  database: keywordranktool_production
+  database: keywordtool
+  password: labopen2011
+  timeout: 5000
+  username: sa
   pool: 5
 

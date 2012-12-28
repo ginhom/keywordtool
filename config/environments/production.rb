@@ -74,8 +74,8 @@ Keyworkranktool::Application.configure do
     address:              'smtp.gmail.com',
     port:                 587,
     domain:               'gmail.com',
-    user_name:            'yclhjh@gmail.com',
-    password:             'yclhjh831204',
+    user_name:            'ginhom.com@gmail.com',
+    password:             'labopen2011',
     authentication:       'plain',
     enable_starttls_auto: true
   }
