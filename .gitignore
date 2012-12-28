@@ -11,10 +11,10 @@
 /db/*.sqlite3
 
 # Secret file
-config/database.yml
-config/deploy.rb
-config/environments/production.rb
-app/models/google_key_word_range.rb
+/config/database.yml
+/config/deploy.rb
+/config/environments/production.rb
+/app/models/google_key_word_range.rb
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
