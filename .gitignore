@@ -21,6 +21,10 @@
 /tmp
 *.gem
 *.rbc
+*.rb~
+*.rb.save
+*.sublime-project
+*.sublime-workspace
 .bundle
 .config
 coverage

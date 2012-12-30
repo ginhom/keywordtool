@@ -14,6 +14,7 @@ gem 'haml'
 gem 'bootstrap-sass'
 gem 'whenever', :require => false
 gem 'devise'
+gem 'therubyracer'
 
 group :development do
 	gem 'hpricot'
