@@ -34,7 +34,9 @@
 								%i.icon-chevron-down
 	.span9
 		.row
-			.span9			
+			.span9
+				= link_to '导出excel',site_path(site,:date=>@data,:format => 'xls'),:class=>'btn pull-right' 
+			.span9						
 				%table.table.table-striped.table-bordered
 					%caption						
 						- if !(site.label.nil? || site.label.blank?)

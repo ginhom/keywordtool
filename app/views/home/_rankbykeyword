@@ -1,8 +1,0 @@
-
-<p>
-<%=form_tag do%>
-  关键字：<br/>
-  <%= text_area_tag 'keyword',nil,:size => "80x6" %><br/>
-  <%= submit_tag '提交' %>
-<% end %>
-</p>

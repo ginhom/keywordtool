@@ -14,6 +14,8 @@ gem 'haml'
 gem 'bootstrap-sass'
 gem 'whenever', :require => false
 gem 'devise'
+#gem 'to_xls', '~> 1.0.0'
+gem 'spreadsheet'
 
 group :development do
 	gem 'hpricot'

@@ -27,6 +27,14 @@ class SitesController < ApplicationController
 		params[:page]||=1
 		@page=params[:page].to_i
 		@date=params[:date].nil? ? site.last_rank_date(@page) : params[:date]
+		respond_to do |format|
+			format.html
+			format.xls {   
+				send_data(site.xls_by_date(@date),  
+				        :type => "text/excel;charset=utf-8; header=present",  
+				        :filename => "Report_Rank_#{Time.now.to_date}.xls")  
+			}  
+		end
 	end
 
 	def rank

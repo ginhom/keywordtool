@@ -25,6 +25,7 @@
 *.rbc
 *.rb~
 *.erb~
+*.haml~
 *.rb.save
 *.sublime-project
 *.sublime-workspace
